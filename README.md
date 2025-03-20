@@ -159,7 +159,7 @@ The GUI enables users to easily select and analyze data using a visually appeali
 To launch the GUI, use:
 
 ```bash
-streamlit gui_app.py
+streamlit run gui_app.py
 ```
 
 ## Contributing
