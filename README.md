@@ -14,7 +14,6 @@ This is a tool to help you **select a statistical test**. In concrete terms, it 
 Typically, you use it **when you want to test the significance of differences** between your groups or variables (means, distribution, dependency) and need to determine the most suitable statistical procedure (parametric or non-parametric model, number of samples, paired or independent data, etc.).
 
 
-
 ## Features
 
 - **Statistical Tests:**
@@ -166,3 +165,67 @@ seaborn gui_app.py
 ## Contributing
 
 Contributions are welcome! Please feel free to submit issues or pull requests for improvements and additional features.
+
+
+## TODO
+ - Realize the complete workflow below
+
+```mermaid
+flowchart TD
+    %% Styling for improved readability
+    classDef startend fill:#F5EBFF,stroke:#BE8FED,stroke-width:2px,color:black;
+    classDef decision fill:#FFF6CC,stroke:#FFBC52,stroke-width:2px,color:black;
+    classDef process fill:#E5F6FF,stroke:#45AEE6,stroke-width:2px,color:black;
+    classDef z fill:#D4EDDA,stroke:#28A745,stroke-width:2px,color:black;
+
+    %% Start Node
+    A[Start]:::startend --> B{Are the data normally distributed?}:::decision
+
+    %% Path for normally distributed data %%
+    B -- Yes --> C{Is there a difference in mean values?}:::decision
+    B -- No --> Q{Are there more than two samples?}:::decision
+
+    %% Decision tree for normal data
+    C -- Yes --> E{Are the data independent?}:::decision
+    C -- No --> F[Paired t-test]:::process
+
+    E -- Yes --> G[Independent t-test: Comparison of two means]:::process
+    E -- No --> F
+
+    %% More than two groups?
+    C -- Yes --> K{Are there more than two groups?}:::decision
+    K -- Yes --> L{Is the experimental design with independent groups?}:::decision
+    L -- No --> M[Two-way ANOVA: Analysis of Variance with two factors]:::process
+    L -- Yes --> N[One-way ANOVA: Analysis of Variance with one factor]:::process
+
+    %% Covariable: ANCOVA %%
+    B -- Yes --> O{Is there a confounding variable?}:::decision
+    O -- Yes --> P[ANCOVA: Analysis of Covariance]:::process
+    O -- No --> K
+
+    %% Path for non-normally distributed data %%
+    B -- No --> Q
+    Q -- Yes --> R{Is the experimental design with dependent samples?}:::decision
+    Q -- No --> S[Friedman Test: Dependent Samples]:::process
+    R -- Yes --> T[Kruskal-Wallis Test: Independent Samples]:::process
+    R -- No --> S
+
+    %% Handling non-parametric correlation %%
+    B -- No --> D{Is there a difference in mean values?}:::decision
+    D -- Yes --> H{Is there a nonlinear relationship?}:::decision
+    D -- No --> U[Mann-Whitney U test: Two samples]:::process
+
+    H -- Yes --> J[Spearman’s Correlation: Monotonic Relationship]:::process
+    H -- No --> U
+
+    %% End states for tests
+    G -->|Done| Z[End of Test]:::z
+    F -->|Done| Z
+    M -->|Done| Z
+    N -->|Done| Z
+    P -->|Done| Z
+    T -->|Done| Z
+    S -->|Done| Z
+    J -->|Done| Z
+```
+
