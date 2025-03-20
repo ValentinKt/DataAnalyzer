@@ -13,6 +13,15 @@ This is a tool to help you **select a statistical test**. In concrete terms, it 
 
 Typically, you use it **when you want to test the significance of differences** between your groups or variables (means, distribution, dependency) and need to determine the most suitable statistical procedure (parametric or non-parametric model, number of samples, paired or independent data, etc.).
 
+# Quick Demo
+
+
+https://github.com/user-attachments/assets/e680e1ef-1a01-4d08-adb2-c698669eaf22
+
+
+
+
+
 
 ## Features
 
