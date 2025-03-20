@@ -159,7 +159,7 @@ The GUI enables users to easily select and analyze data using a visually appeali
 To launch the GUI, use:
 
 ```bash
-seaborn gui_app.py
+streamlit gui_app.py
 ```
 
 ## Contributing
